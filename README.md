@@ -10,3 +10,4 @@ learn something for linux kernel knowledge day by day
 其实整个从内核模块到用户空间的调用并不复杂。
 可以用一个linux虚拟机学习增加内核模块和打印一些信息。
 甚至在此基础上编写界面程序。
+如何成为一个真正的程序员，从底层可以构建一些文件。
