@@ -13,12 +13,12 @@ static int __init my_init(void)
     unsigned long order;
     char *vm_buff;
     /* __get_free_pages() */
-    for(size=PAGE_SIZE,order=0; order<MAX_ORDER; order++, size*2)
+    for(size=PAGE_SIZE,order=0; order<MAX_ORDER; order++, size*=2)
     {
         pr_info("order=%2lu,pages=%5lu, size=%8lu ", order, size/PAGE_SIZE, size);
         kbuf=(char*)__get_free_pages(GFP_ATOMIC, order);
         if(!kbuf) {
-            pe_err("Testing Function: __get_free_pages Failed.\n");
+            pr_err("Testing Function: __get_free_pages Failed.\n");
             break;
         }
         pr_info("Testing --> __get_free_pages OK.\n");
@@ -27,7 +27,7 @@ static int __init my_init(void)
   
     /* kmalloc() */
     pr_info("/n");
-    for(size=PAGE_SIZE,order=0; order<MAX_ORDER;order++,size*2) {
+    for(size=PAGE_SIZE,order=0; order<MAX_ORDER;order++,size*=2) {
         pr_info("order=%2lu,page%5lu,size-%8lu ", order, size/PAGE_SIZE, size);
         kbuf=kmalloc((size_t)size,GFP_ATOMIC);
         if(!kbuf) {
