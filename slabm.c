@@ -28,12 +28,16 @@ static int __init myslab_init(void)
         (void)kmem_cache_destroy(my_caches);
         return -1;
     }
+    pr_info(" Create a object sucessfully,kbuf_address=0x%p\n",kbuf);
     return 0;
 }
 
 static void __exit myslab_exit(void)
 {
-
+    kmem_cache_free(my_caches, kbuf);
+    pr_info(" Destroy a  cache object.\n");
+    (void)kmem_cache_destroy(my_caches);
+    pr_info(" Destroy mycaches.\n");
 }
 
 module_init(myslab_init);
