@@ -16,8 +16,9 @@ static int __init my_init(void)
     for_each_possible_cpu(cpu) {
         per_cpu(cpuvar,cpu)=10;
         pr_info("Init: Cpuvar on CPU %d=%ld\n",cpu, get_cpu_var(cpuvar));
+        put_cpu_var(cpuvar);
     }
-    put_cpu_var(cpuvar);
+    
   
     __this_cpu_var(cpuvar);
     cpualloc=alloc_percpu(long);
