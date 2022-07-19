@@ -20,7 +20,7 @@ static int __init my_init(void)
     }
     
   
-    __this_cpu_var(cpuvar);
+    __this_cpu_write(cpuvar, 10);
     cpualloc=alloc_percpu(long);
     for_each_possible_cpu(cpu) {
         *per_cpu_ptr(cpualloc, cpu)=6688;
