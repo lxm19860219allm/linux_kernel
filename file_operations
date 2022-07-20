@@ -1,3 +1,4 @@
 //VFS对象及数据结构
 //超级块对象super_block，对应已装载的文件系统。索引节点对象inode，对英介质上的一个文件。目录项对象dentry，对应一个目录项。文件对象file，对应进程所打开的文件。所有定义在linux、fs.h中。
-//
+//inode_operations {}
+
