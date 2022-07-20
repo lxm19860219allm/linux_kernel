@@ -6,7 +6,7 @@
 int main()
 {
     int fd=0;
-    fd=open("/home/vico/Desktop/test",O_RDRW,0777);
+    fd=open("/home/vico/Desktop/test",O_RDWR,0777);
     if (fd < 0) {
         perror("\nopen error.\n");
     }
