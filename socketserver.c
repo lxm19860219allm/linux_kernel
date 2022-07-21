@@ -25,12 +25,12 @@ static void handle_connect(int s_s)
         char buff[BUFFLEN];
         int n=0;
         memset(buf,0,BUFFLEN);
-        n=recv(s_c,buff,BUFFLEN);
+        n=recv(s_c,buff,BUFFLEN,0);
         if(n>0&& !strncmp(buff,"TIME",4)) {
             memset(buf,0,BUFFLEN);
             now=time(NULL);
             sprintf(buff,"%24s\r\n",ctime(&now));
-            send(s_c, buff, strnlen(buff),0);
+            send(s_c, buff, strlen(buff),0);
         }
          close(s_c);
     }
