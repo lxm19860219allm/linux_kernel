@@ -14,6 +14,9 @@ MODULE_DESCRIPTION("netlink protocol example");
 
 struct sock *nlsk=NULL;
 extern struct net init_net;
+struct netlink_kernel_cfg cfg={
+    .input=netlink_rcv_msg,
+};
 
 int send_usrmsg(char *pbuf, uint16_t len)
 {
