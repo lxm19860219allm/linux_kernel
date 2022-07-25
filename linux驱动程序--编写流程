@@ -1,0 +1,44 @@
+//编写流程
+//1. 确认主设备号 查询LINUX系统中已经被使用过的主设备号
+cat /proc/devices
+//2. 编写file_operations结构体
+struct file_operations {
+   struct module *owner;
+   loff_t (*llseek)(struct file*, loff_t, int);
+   ssize_t (*read)(struct file*, char __user*, size_t, loff_t*);
+   ssize_t (*write)(struct file*, const char __user*, size_t, loff_t*);
+   ssize_t (*aio_read)(struct kiocb*, const struct iovec*, unsigned long, loff_t);
+   sszie_t (*aio_write)(struct kiocb*,const struct iovec*, unsigned long, loff_t);
+   ssize_t (*readdir)(struct file*，void*,filldir_t);
+   unsigned int (*poll)(struct file*, struct poll_table_struct*);
+   //编程和数学计算有相似的地方，例如计算机里的表达式与数学中的函数类似，但是有不同之处，否则会非常迷惑。
+   //计算机里的函数是封装了一些相关操作的集合，只是为了说明和描述联系。
+   //数学里的函数可能还包括两个变量之间关系的不可分割性，就是说不能显式的分离两个变量，这个可能不能分立的表示两个变量。
+   long (*unlocked_ioctl)(struct file*, unsigned int, unsigned long);
+   long (*compat_ioctl)(struct file*，unsigned int， unsigned long);
+   int (*mmap)(struct file*,struct vm_area_struct*);
+   int (*open)(struct inode*, struct file*);
+   int (*flush)(struct file*, fl_owner_t id);
+   int (*release)(struct innode*, struct file*);
+   int (*fsync)(struct file*, loff_t, loff_t, int datasync);
+   //由于操作是分立的，不同的函数可以封装不同的操作。
+   //函数里有加锁和不加锁的两个操作的实现，一个应该是加了指令读取到执行的流程的控制操作。
+   int (*aio_fsync)(struct kiocb*, int datasync);
+   int (*fasync)(int,struct file*,int);
+   int (*lock)(struct file*,int,struct file_lock*);
+   ssize_t (*sendpage)(struct file*,struct page*, int, size_t, loff_t*,int);
+   unsigned long (*get_unmapped_area)(struct file*, unsigned long, unsigned long,unsigned long, unsigned long);
+   int (*check_flags)(int);
+   int (*flock)(struct file*, int, struct file_lock*);
+   ssize_t (*splice_write)(struct pipe_inode_info*, struct file*,loff_t*, size_t, unsigned int);
+   ssize_t (*splice_read)(struct file*, loff_t*, struct pipe_inode_info*,size_t,unsigned int);
+   //可操作的粒度的确是一个问题。
+   int (*setlease)(struct file*,long,struct file_lock**);
+   long (*fallocate)(struct file*file, int mode,loff_t offset, loff_t len);
+   int (*show_fdinfo)(struct seq_file *m, struct file *f);
+}
+//3. file_operation结构体中包含驱动入口函数。在函数中注册驱动，注册至chardev[]数组中。
+int __register_chrdev(unsigned int major,const char *name,const struct file_operations *fops);
+//4. 自动生成设备和设备文件
+class_create(THIS_MODULE,XXX);
+class_device_create(创建的设备名, NULL, MKDEV(major_num,0),NULL,"模块名")；
