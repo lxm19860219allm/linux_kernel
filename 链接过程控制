@@ -7,4 +7,14 @@
 //ENTRY(symbol)  指定符号symbol的值为入口地址。入口地址即进程执行的第一条用户空间的指令在进程地址空间的地址，它被指定在ELF文件头Elf32_Ehdr的e_entry成员中。
 //ld有多种方法可以设置进程入口地址，它们之间的优先级按以下顺序排列，编号越靠前，优先级越高。
 //1. ld命令行的-e选项
-//2. 链接脚本的ENTRY()
+//2. 链接脚本的ENTRY(symbol)
+//3. 如果定义了_start符号，使用_start符号值
+//4. 如果存在.text段，使用.text段的第一字节的地址
+//5. 使用值0
+//STARTUP(filename) 将文件filename作为链接过程中的第一个输入文件。
+//SEARCH_DIR(path)  将路径path加入到ld链接器的库查找目录。ld会根据指定的目录去查找相应的库。跟"-Lpath"命令有着相同的作用。
+//INPUT(file,file,...)  INPUT(file file ...) 将指定文件作为链接过程中的输入文件。
+//INCLUDE filename 将指定文件包含进本链接脚本。
+//PROVIDE(symbol) 在链接脚本中定义某个符号。该符号可以在程序中被引用。
+//BFD库
+//
