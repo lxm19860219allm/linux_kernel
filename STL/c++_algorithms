@@ -152,10 +152,74 @@ if(equal(v1.begin(), v1.end(), v2.begin())) {
     cout <<" v1 and v2 are NOT equal"<<endl;
 }
 equal_range
-
-fill 
-fill_n 
+syntax:
+#include <algorithm>
+pair<iterator,iterator> equal_range(iterator first, iterator last, const TYPE& val);
+pair<iterator,iterator> equal_range(iterator first, iterator last, const TYPE& val, CompFn comp);
+The equal_range() function returns the range of elements between first and last that are equal to val.
+This function assumes that the elements between first and end in order according to comp, if it is specified, or the < operator otherwise.
+equal_range() can be thought of as a combination of the lower_bound() and `upper_bound1`() functions, since the first of the pair of iterators that 
+it returns is what lower_bound() returns and the second iterator in the pair is what `upper_bound1`() returns.
+For example, the following code uses equal_range() to determine all of the possible places that the number 8 can be inserted into an ordered vector 
+of inetgers such that the existing ordering is preserved:
+vector<int> nums;
+nums.push_back(-242);
+nums.push_back(-1);
+nums.push_back(0);
+nums.push_back(5);
+nums.push_back(8);
+nums.push_back(8);
+nums.push_back(11);
+pair<vector<int>::iterator, vector<int>::iterator> result;
+result = equal_range(nums.begin(), nums.end(),new_val);
+cout<<"The first place that "<<new_val<<" could be inserted is before "
+    <<*result.first<<", and the last place that it could be inserted is before "
+    <<*result.second<<endl;
+fill
+syntax:
+#include <algorithm>
+void fill(iterator start, iterator end, const TYPE& val);
+The function fill() assigns val to all of the elements between start and end.
+For example, the following code uses fill() to set all of the elements of a vector of integers to -1:
+vector<int> v1;
+for(int i = 0; i < 10; i++) {
+    v1.push_back(i);
+}
+cout << "Before, v1 is: ";
+for(unsigned int i = 0; i < v1.size(); i++) {
+    cout <<v1[i]<<" ";
+}
+cout<<endl;
+fill(v1.begin(), v1.end(), -1);
+cout<<"After, v1 is: ";
+for(unsigned int i = 0; i < v1.size(); i++) {
+    cout << v1[i]<<" ";
+}
+cout<<endl;
+fill_n
+syntax:
+#include <algorithm>
+iterator fill_n(iterator start, size_t n, const TYPE& val);
+The fill_n() function is similar to fill(). Instead of val to a range of elements, however, fill_n() assigns val to the first n elements
+starting at start.
+For example, the following code uses fill_n() to assign -1 to the first half of a vector of integers:
+vector<int> v1;
+for(int i = 0; i < 10; i++) {
+    v1.push_back(i);
+}
+cout <<"Before, v1 is: ";
+for(unsigned int i = 0; i < v1.size(); i++) {
+    cout << v1[i]<<" ";
+}
+cout<<endl;
+fill_n(v1.begin(), v1.size()/2, -1);
+cout<<"After, v1 is: ";
+for(unsigned int i = 0; i < v1.size(); i++) {
+    cout << v1[i] << " ";
+}
+cout <<endl;
 find
+
 find_end
 find_first_of
 find_if
