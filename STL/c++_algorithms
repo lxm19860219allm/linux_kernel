@@ -1,17 +1,139 @@
 //display all entries for c++ algorithms.
-accumulate
-adjacent_defference
+accumulate  
+syntax:
+#include <numeric>
+TYPE accumulate(iterator start, iterator end, TYPE val);
+TYPE accumulate(iterator start, iterator end, TYPE val, BinaryFunction f);
+The accumulate() function cimputes the sum of val and all of the elements in the range [start,end).
+If the binary function f if specified, it is used instead of the + operator to perform the summation.
+accumulate() runs in linear time.
+adjacent_difference
+syntax:
+#include <numeric>
+iterator adjacent_difference(iterator start, iterator end, iterator result);
+iterator adjacent_difference(iterator start, iterator end, iterator result, BinaryFunction f);
+The adjacent_difference() function calculates the differences between adjacent elements in the range [start,end) and stores the result starting at result.
+If a binary function f is given, it is used instead of the - operator to compute the differences.
+adjacent_difference() runs in linear timer.
 adjacent_find
+syntax:
+#include <algorithm>
+iterator adjacent_find(iterator start, iterator and);
+iterator adjacent_find(iterator start, iterator end, BinPred pr);
+The adjacent_find() function searches between start and end for two consecutive identical elements. If the binary predicate pr is specified, then it is used
+to test whether two elements are the same or not.
+The return value is an iterator that points to the first of the two elements that are found. If no matching elements are found, the returned iterator points to end.
+For exmaple, the following code creates a vector containing the integers between 0 and 10 with 7 appearing twice in a row. adjacent_find() is then used to find the location of the pair of 7's:
+vector<int> v1;
+for(int i = 0; i < 10; i++) {
+   v1.push_back(i);
+   // add a duplicate 7 into v1
+   if(i == 7) {
+       v1.push_back(i);
+   }
+}
+vector<int>::iterator result;
+result = adjacent_find(v1.begin(), v1.end());
+if (result == v1.end()) {
+    cout<<"Did not find adjacent elements inv1"<<endl;
+}
+else {
+    cout<<"Found matching adjacent elements starting at" << *result<<endl;
+}
 binary_search
+syntax:
+#include <algorithm>
+bool binary_search(iterator start, iterator end, const TYPE& val);
+bool binary_search(iterator start, iterator end, const TYPE& val, Comp f);
+The binary_search() function searches from start to end for val. the elements between start and end that are searched should be in ascending order as defined
+by the < operator. Note that a binary search will not work unless the elements being searched are in order.
+If val is found,binary_search() returns true, otherwise false.
+If the function f is specified, then it is used to compare elements.
+For example, the following code uses binary_search() to determine if the integers 0-9 are in an array of integers:
+int nums[] = { -242, -1, 0, 5, 8, 9, 11};
+int start = 0;
+int end = 7;
+for (int i = 0; i < 10; i++) {
+    if（binary_search(nums+start, nums+end, i)） {
+       cout << "nums[] contains " << i <<endl;
+    } else {
+        cout <<"nums[] DOES NOT contain "<<i <<endl;
+    }
+}
 copy
+syntax:
+#include <algorithm>
+iterator copy(iterator start, iterator end, iterator dest);
+The copy() function copies the elements between start and end to dest. In other words, after copy() has run.
+The return value is an iterator to the last element copied.copy() runs in linear time.
+For example, the following code uses copy() to copy the contents of one vector to another:
+vector<int> from_vector;
+for(int i = 0; i < 10; i++) {
+    from_vector.push_back(i);
+}
+vector<int> to_vector(10);
+copy(from_vector.begin(), from_vector.end(),to_vector.begin());
+cout<<"to_vector contains: ";
+for(unsigned int i = 0; i < to_vector.size(); i++) {
+    cout<<to_vector[i]<<" ";
+}
+cout<<endl;
 copy_backward
+syntax:
+#include <algorithm>
+iterator copy_backward(iterator start, iterator end, iterator dest);
+copy_backward() is similar to copy(), in that both functions copy elements from start to end to dest. The copy_backward() function , however, starts depositing 
+elements at dest and then works backwards.
+The following code uses copy_backward() to copy 10 integers into the end of an empty vector:
+vector<int> from_vector;
+for(int i = 0; i < 10; i++) {
+    from_vector.push_back(i);
+}
+vector<int> to_vector(15);
+copy_backward(from_vector.begin(), from_vector.end(), to_vector.end());
+cout<<"to_vector contains: ";
+for(unsigned int i = 0; i < to_vector.size(); i++) {
+    cout<<to_vector[i]<<" ";
+}
+cout<<endl;
 copy_n
+syntax:
+#include <algorithm>
+iterator copy_n(iterator from, size_t num, iterator to);
+The copy_n() function copies num elements starting at from to the destination pointed at by to. To put it another way, copy_n() performs num assignments and 
+duplicates a subrange.
+The return value of copy_n() is an iterator that points to the last element that was copied, i.e. (to + num).
+This function runs in linear time.
 count
+syntax:
+#include <algorithm>
+size_t count(iterator start, iterator end, const TYPE& val);
+The count() function returns the number of elements between start and end that match val.
+For example, the following code uses count() to determine how many integers in a vector match a target value:
+vector<int> v;
+for(int i = 0; i < 10; i++) {
+    v.push_back(i);
+}
+int target_value = 3;
+int num_items = count(v.begin(), v.end(), target_value);
+cout<<"v contains "<<num_items<< " items matching "<<target_value<<endl;
 count_if
+syntax:
+#include <algorithm>
+size_t count_if(iterator start, iterator end, UnaryPred p);
+The count_if() function returns the number of elements between start and end which the predicate p return true.
+For example, the following code uses count_if() with a predicate that return true for the integer 3 to count the number of items in a array that are equal to 3:
+int nums[] = {0, 1, 2, 3, 4, 5, 9, 3,13};
+int start = 0;
+int end = 9;
+int target_value = 3;
+int num_items = count_if(nums+start, nums+end, bind2nd(equal_to<int>(), target_value));
+cout<<"nums[] contains "<<num_items<< " items matching "<<target_value<<endl;
 equal
+
 equal_range
-fill
-fill_n
+fill 
+fill_n 
 find
 find_end
 find_first_of
