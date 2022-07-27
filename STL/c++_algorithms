@@ -219,7 +219,25 @@ for(unsigned int i = 0; i < v1.size(); i++) {
 }
 cout <<endl;
 find
-
+syntax:
+#include <algorithm>
+iterator find(iterator start, iterator end, const TYPE& val);
+The find() algorithm looks for an element matching val between start and end. If an elemenet matching val is found, the return value is an iterator that 
+points to that element. Otherwise, the return value is an iterator that points to end.
+For example, the following code uses find() to search a vector of integers for the number 3:
+int num_to_find = 3;
+vetcor<int> v1;
+for(int i = 0; i < 10; i++) {
+    v1.push_back(i);
+}
+vector<int>::iterator result;
+result = find(v1.begin(), v1.end(), num_to_find);
+if(result == v1.end()) {
+    cout << "Did not find any element matching "<<num_to_find<<endl;
+}
+else {
+    cout<<"Found a matching element: "<<*result<<endl;
+}
 find_end
 find_first_of
 find_if
