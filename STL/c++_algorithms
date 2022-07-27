@@ -130,8 +130,29 @@ int target_value = 3;
 int num_items = count_if(nums+start, nums+end, bind2nd(equal_to<int>(), target_value));
 cout<<"nums[] contains "<<num_items<< " items matching "<<target_value<<endl;
 equal
-
+syntax:
+#include <algorithm>
+bool equal(iterator start1, iterator end1, iterator start2);
+bool equal(iterator start1, iterator end1, iterator start2, BinPred p);
+The equal() function returns true if the elements in two ranges are the same. The first range of elements are those between satrt1 and end1. The second range
+of elements has the same size as the first range but starts at start2.
+If the binary predicate p is specified, then it is used instead of == to compare each pair of elements.
+For example, the following code uses equal() to compare two vectors of integers:
+vector<int> v1;
+for(int i = 0; i < 10; i++) {
+    v1.push_pack(i);
+}
+vector<int> v2;
+for(int i = 0; i < 10; i++) {
+    v2.push_back(i);
+}
+if(equal(v1.begin(), v1.end(), v2.begin())) {
+    cout << "v1 and v2 are equal"<<endl;
+} else {
+    cout <<" v1 and v2 are NOT equal"<<endl;
+}
 equal_range
+
 fill 
 fill_n 
 find
